@@ -4,16 +4,16 @@ FROM python:3.9-slim
 # Set the working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container
+# Copy project files into the container
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Collect static files
+# Collect static files (for Django)
 RUN python api/manage.py collectstatic --noinput
 
-# Apply migrations
+# Apply database migrations
 RUN python api/manage.py migrate
 
 # Expose port 8000
